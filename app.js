@@ -1,8 +1,9 @@
-const express     = require("express"),
-      mongoose    = require("mongoose"),
-      users       = require("./routes/api/users"),
+const express       = require("express"),
+      mongoose      = require("mongoose"),
+      bodyParser    = require("body-parser"),
+      users         = require("./routes/api/users"),
       profile       = require("./routes/api/profile"),
-      posts       = require("./routes/api/posts"),
+      posts         = require("./routes/api/posts"),
       app  = express() ,
       port = process.env.Port || 3000 ;
 
@@ -18,6 +19,11 @@ mongoose
 app.get("/" , (req, res)=>{
   res.send("hello in our app!!");
 })
+
+//bodyParser middleware
+
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 //use routes
 app.use("/api/users" , users);
