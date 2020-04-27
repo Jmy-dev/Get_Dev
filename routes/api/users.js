@@ -1,11 +1,15 @@
-const express  = require("express") ,
-      User     = require("../../models/User"),
-      bcrypt   = require("bcryptjs"),
-      passport = require("passport"),
-      gravatar = require("gravatar"),
-      keys     = require("../../config/keys"),
-      jwt      = require("jsonwebtoken"),
+const express               = require("express") ,
+      User                  = require("../../models/User"),
+      bcrypt                = require("bcryptjs"),
+      passport              = require("passport"),
+      gravatar              = require("gravatar"),
+      keys                  = require("../../config/keys"),
+      jwt                   = require("jsonwebtoken"),
+      validateRegisterInput = require("../../validation/register")
       router = express.Router();
+
+// load Input Validation
+
 
       //  @route   GET api/users/Test
       //  @desc    Tests users route
@@ -21,10 +25,19 @@ router.get("/test" , (req, res)=>{
 //  @access  public
 
 router.post("/register" , (req , res)=>{
+
+const {errors , isValid} = validateRegisterInput(req.body) ;
+
+//check validation
+if(!isValid){
+  return res.status(400).json(errors);
+}
+
   User.findOne({email: req.body.email})
   .then(user =>{
     if(user){
-      res.status(400).json({ email: "Email already exists!!"})
+      errors.email='Email already exists!!'
+      res.status(400).json({ errors})
     }
     else{
       const avatar = gravatar.url(req.body.email , {
