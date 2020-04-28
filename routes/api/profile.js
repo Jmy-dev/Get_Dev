@@ -33,6 +33,70 @@ router.get("/" , passport.authenticate('jwt' , {session :false}) , (req, res)=>{
 });
 
 
+
+// @route    Get api/profile/developers
+// @desc     find all developers profiles
+// @access   public
+router.get('/developers' , (req ,res)=>{
+  const errors = {};
+  Profile.find()
+         .populate('user' , [ 'name' , 'avatar'])
+         .then( profiles => {
+           if (!profiles) {
+             errors.noprofile = 'there is no profile for this user';
+             return res.status(404).json(errors);
+           }
+           res.json(profiles);
+         })
+         .catch( err => res.status(404).json({profile: 'there is no profiles yet'}));
+
+});
+
+
+
+// @route    Get api/profile/handle/:handle
+// @desc     find profile by handle
+// @access   public
+router.get('/handle/:handle' , (req ,res)=>{
+  const errors = {};
+  Profile.findOne({handle:req.params.handle})
+         .populate('user' , [ 'name' , 'avatar'])
+         .then( profile => {
+           if (!profile) {
+             errors.noprofile = 'there is no profile for this user';
+             res.status(404).json(errors);
+           }
+           res.json(profile);
+         })
+         .catch( err => res.status(404).json({profile: 'there is no profile for this user'}));
+
+});
+
+
+
+// @route    Get api/profile/user/:user_id
+// @desc     find profile by id
+// @access   public
+router.get('/user/:user_id' , (req ,res)=>{
+  const errors = {};
+  Profile.findOne({user:req.params.user_id})
+         .populate('user' , ['name' , 'avatar'])
+         .then( profile => {
+           if (!profile) {
+             errors.noprofile = 'there is no profile for this user';
+             res.status(404).json(errors);
+           }
+           res.json(profile);
+         })
+         .catch( err => res.status(400).json({profile: 'there is no profile for this user'}));
+
+});
+
+
+
+
+
+
 // @route    POST api/profile
 // @desc     create or eidt currentUser profile
 // @access   Private
@@ -76,7 +140,7 @@ router.post("/" , passport.authenticate('jwt' , {session :false}) , (req, res)=>
           //create
 
           //check for handle
-          Profile.findOne({handle: profileFields.handle})
+          Profile.findOne({user: profileFields.handle})
             .then(profile =>{
               if (profile) {
                 errors.handle = 'that handle already exists';
