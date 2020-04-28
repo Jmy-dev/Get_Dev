@@ -13,7 +13,7 @@ const express       = require("express"),
 const db = keys.mongoURI;
 
 //Connect to mongodb
-mongoose.connect(db, {useNewUrlParser : true ,  useUnifiedTopology: true })
+mongoose.connect(db, {useNewUrlParser : true ,  useUnifiedTopology: true , useFindAndModify : false})
 .then(()=> console.log('mongodb connected'))
 .catch(err => console.log(err));
 
@@ -24,7 +24,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 //bodyParser middleware
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //use routes

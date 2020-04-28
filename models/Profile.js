@@ -3,14 +3,14 @@ const mongoose = require("mongoose") ,
 
 
 const ProfileSchema = new Schema({
-  user: {
+  user:{
     type: Schema.Types.ObjectId,
     ref : 'users'
   },
   handle:{
     type: String,
-    required: true ,
-    max : 40,
+    required: true,
+    max : 40
   },
   company:{
     type: String
@@ -30,7 +30,7 @@ const ProfileSchema = new Schema({
     required: true
   },
   bio:{
-    type: [String],
+    type: String,
     required: true
   },
   githubusername: {
@@ -101,19 +101,15 @@ const ProfileSchema = new Schema({
      },
      facebook:{
        type: String ,
-       required: true
      },
      twitter:{
       type: String ,
-      required: true
      },
      linkedin:{
       type: String ,
-      required: true
      },
      instagram:{
        type: String ,
-       required: true
      }
   },
   date:{
@@ -122,6 +118,6 @@ const ProfileSchema = new Schema({
   }
 })
 
-const Profile = mongoose.model("profile" , ProfileSchema) ;
+const Profile = mongoose.model('profile' , ProfileSchema) ;
 
 module.exports = Profile ;
