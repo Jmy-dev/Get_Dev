@@ -35,15 +35,7 @@ if(!isEmpty(data.website)){
 //======================
 // experience Validation
 //======================
-// if(Validator.isEmpty(data.experience.title)){
-//   errors.experience.title = 'Title field is required';
-// }
-// if(Validator.isEmpty(data.experience.company)){
-//   errors.experience.company = 'Company field is required';
-// }
-// if(Validator.isEmpty(data.experience.from)){
-//   errors.experience.from = 'From field is required';
-// }
+
 //======================
 // education Validation
 //======================
