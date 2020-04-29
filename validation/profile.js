@@ -32,27 +32,9 @@ if(!isEmpty(data.website)){
     errors.website = 'Not a valid URL' ;
   }
 }
-//======================
-// experience Validation
-//======================
 
-//======================
-// education Validation
-//======================
 
-// if(Validator.isEmpty(data.education.school)){
-//   errros.education.school = 'School filed is required';
-// }
-// if(Validator.isEmpty(data.education.degree)){
-//   errros.education.degree = 'Degree filed is required';
-// }
-// if(Validator.isEmpty(data.education.fieldodstudy)){
-//   errros.education.fieldodstudy = 'Fieldodstudy filed is required';
-// }
-//
-// if(Validator.isEmpty(data.education.from)){
-//   errros.education.from = 'From filed is required';
-// }
+
 //======================
 // Social Validation
 //======================
