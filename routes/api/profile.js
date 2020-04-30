@@ -45,7 +45,7 @@ router.get('/developers' , (req ,res)=>{
          .populate('user' , [ 'name' , 'avatar'])
          .then( profiles => {
            if (!profiles) {
-             errors.noprofile = 'there is no profile for this user';
+             errors.noprofile = 'there is no profiles yet';
              return res.status(404).json(errors);
            }
            res.json(profiles);
